@@ -1,2 +1,1 @@
-This is a Java project template for the Luna version of Eclipse JDT and
-Eclipse m2e. It also enables the FindBugs builder.
+**reasm-batch** is the standard command-line interface to **reasm-core**.
