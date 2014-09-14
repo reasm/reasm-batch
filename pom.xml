@@ -26,4 +26,18 @@
       </plugin>
     </plugins>
   </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.reasm</groupId>
+      <artifactId>reasm-core</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.reasm</groupId>
+      <artifactId>reasm-m68k</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+      <optional>true</optional>
+    </dependency>
+  </dependencies>
 </project>
