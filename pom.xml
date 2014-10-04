@@ -36,6 +36,33 @@
           <target>1.7</target>
         </configuration>
       </plugin>
+
+      <plugin>
+      	<artifactId>maven-assembly-plugin</artifactId>
+        <version>2.4.1</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>org.reasm.batch.Assembler</mainClass>
+            </manifest>
+          </archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+
+        <!-- Generate an assembly during the package phase -->
+        <!-- http://stackoverflow.com/a/14276860/234590 -->
+        <executions>
+          <execution>
+            <id>assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 
