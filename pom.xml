@@ -38,27 +38,42 @@
       </plugin>
 
       <plugin>
-      	<artifactId>maven-assembly-plugin</artifactId>
-        <version>2.4.1</version>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>2.3</version>
         <configuration>
-          <archive>
-            <manifest>
-              <mainClass>org.reasm.batch.Assembler</mainClass>
-            </manifest>
-          </archive>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
-        </configuration>
+          <artifactSet>
+            <excludes>
+              <exclude>junit:*</exclude>
+              <exclude>org.hamcrest:*</exclude>
+            </excludes>
+          </artifactSet>
 
-        <!-- Generate an assembly during the package phase -->
-        <!-- http://stackoverflow.com/a/14276860/234590 -->
+          <!-- minimizeJar doesn't work too well for us, -->
+          <!-- because the language-specific assemblers are not referenced statically -->
+          <!-- (they're loaded with ServiceLoader). -->
+          <!-- We can specify classes to include explicitly, -->
+          <!-- but then the classes that they reference will be discarded -->
+          <!-- if they're not used statically by reasm-batch. -->
+          <!-- <minimizeJar>true</minimizeJar> -->
+
+          <transformers>
+            <!-- Prevent duplication of licenses in META-INF -->
+            <transformer implementation="org.apache.maven.plugins.shade.resource.ApacheLicenseResourceTransformer" />
+
+            <!-- Merge META-INF/NOTICE* files -->
+            <transformer implementation="org.apache.maven.plugins.shade.resource.ApacheNoticeResourceTransformer">
+              <addHeader>false</addHeader>
+            </transformer>
+
+            <!-- Merge services resources (META-INF/services/*). -->
+            <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+          </transformers>
+        </configuration>
         <executions>
           <execution>
-            <id>assembly</id>
             <phase>package</phase>
             <goals>
-              <goal>single</goal>
+              <goal>shade</goal>
             </goals>
           </execution>
         </executions>
