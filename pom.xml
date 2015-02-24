@@ -41,13 +41,6 @@
         <artifactId>maven-shade-plugin</artifactId>
         <version>2.3</version>
         <configuration>
-          <artifactSet>
-            <excludes>
-              <exclude>junit:*</exclude>
-              <exclude>org.hamcrest:*</exclude>
-            </excludes>
-          </artifactSet>
-
           <!-- minimizeJar doesn't work too well for us, -->
           <!-- because the language-specific assemblers are not referenced statically -->
           <!-- (they're loaded with ServiceLoader). -->
