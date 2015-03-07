@@ -57,8 +57,9 @@ public class Assembler {
 
                 // Create the main source file.
                 final Path path = Paths.get(args[0]);
-                final SourceFile mainSourceFile = new SourceFile(new String(Files.readAllBytes(path), "UTF-8"), path.getFileName()
-                        .toString());
+                final Path fileName = path.getFileName();
+                final SourceFile mainSourceFile = new SourceFile(new String(Files.readAllBytes(path), "UTF-8"),
+                        fileName == null ? "" : fileName.toString());
 
                 // Create a configuration.
                 final FileFetcher fileFetcher = new LocalFileFetcher(args[0]);
